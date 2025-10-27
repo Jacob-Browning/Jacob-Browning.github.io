@@ -1,0 +1,245 @@
+body {
+  margin: 0;
+  background-color: #000;
+  font-family: Arial, sans-serif;
+  color: white;
+  position: relative;
+  overflow-x: hidden;  /* prevent sideways scroll */
+  overflow-y: auto;    /* enable vertical scroll */
+  min-height: 100vh;   /* allows body to expand beyond viewport */
+}
+
+
+/* Dot map container */
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(55, 1fr);
+  grid-template-rows: repeat(35, 1fr);
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Dots */
+.cell {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: #222;
+  transition: background-color 0.1s linear, box-shadow 0.2s ease;
+}
+
+
+.panel-container {
+  display: grid;
+  grid-template-columns: 600px 600px;
+  gap: 40px 40px;
+  justify-content: center;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Panels */
+.panel {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  text-align: center;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Each panel positioning */
+.div1 {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 180px 400px;
+  align-items: center;     /* vertically center each cell’s content */
+}
+
+.div1 .pict {
+  width:180px;
+  height:180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div1 .text1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertical centering */
+  align-items: center;      /* horizontal centering */
+  text-align: center;
+}
+.div1 .text2 {
+  padding-right:20px;
+  grid-column: 1 / span 2;
+  grid-row:2;
+}
+
+.div2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.div3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+.div4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+/* Full-width panel */
+.div5 {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+.div6 {
+  grid-column: 1;
+  grid-row: 4;
+}
+.div7 {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+/* Panel text styles */
+.panel h1 {
+  font-size: 1.8em;
+  margin-bottom: 0.3em;
+}
+
+.panel h2 {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  color: #aaa;
+}
+
+.panel p {
+  font-size: 1em;
+  color: #ddd;
+}
+/* Project card container */
+.project-card {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding-top: 0px;
+  padding-bottom: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 12px 0;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Text styling inside the project card */
+.project-card h3 {
+  font-size: 1.4em;
+  margin-bottom: 0.4em;
+  color: #fff;
+}
+
+.project-card p {
+  font-size: 1em;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Hover effect */
+.project-card:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* GitHub icon positioning */
+.project-card .github-icon {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover effect for icon */
+.project-card:hover .github-icon {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+.contact-cards-container {
+  display: flex;
+  justify-content: center; /* Center the cards horizontally */
+  align-items: center;     /* Vertically align icons and text */
+  gap: 24px;               /* Space between the cards */
+  flex-wrap: wrap;         /* Wrap on smaller screens */
+  margin-top: 20px;
+}
+.contact-card {
+  display: flex;
+  align-items: center;          /* Vertically align icon + text */
+  justify-content: center;      /* Center them horizontally */
+  gap: 14px;                    /* Space between icon and text */
+
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 14px 24px;
+  margin: 12px 0;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Icon */
+.contact-card .icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Text */
+.contact-card h3 {
+  font-size: 1.2em;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap; /* Keeps text from wrapping to next line */
+}
+
+/* Hover */
+.contact-card:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.contact-card:hover .icon {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+}
+
