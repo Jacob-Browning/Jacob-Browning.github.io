@@ -72,3 +72,72 @@ function animate() {
 }
 
 animate();
+// ----------------- Dynamic Masonry Layout -----------------
+function initMasonry() {
+  const container = document.querySelector('.panel-container');
+  const panels = Array.from(container.querySelectorAll('.panel'));
+  const gutter = 40; // same as your CSS gap
+  const containerWidth = container.clientWidth;
+  const columnWidth = (containerWidth - gutter) / 2; // two columns
+  const columnHeights = [0, 0]; // track height of each column
+
+  panels.forEach(panel => {
+    panel.style.position = 'absolute';
+    panel.style.width = panel.classList.contains('div5') 
+      ? `calc(100% - ${gutter}px)` 
+      : `${columnWidth}px`;
+  });
+
+  panels.forEach(panel => {
+    if (panel.classList.contains('div5')) {
+      // Full-width panel spans both columns
+      const top = Math.max(...columnHeights);
+      panel.style.top = `${top}px`;
+      panel.style.left = '0px';
+      // Update both columns
+      columnHeights[0] = columnHeights[1] = top + panel.offsetHeight + gutter;
+    } else {
+      // Place in shorter column
+      const colIndex = columnHeights[0] <= columnHeights[1] ? 0 : 1;
+      panel.style.left = `${colIndex * (columnWidth + gutter)}px`;
+      panel.style.top = `${columnHeights[colIndex]}px`;
+      columnHeights[colIndex] += panel.offsetHeight + gutter;
+    }
+  });
+
+  container.style.position = 'relative';
+  container.style.height = `${Math.max(...columnHeights)}px`;
+}
+
+// Run after window load and when all images inside panels finish loading
+function waitForImagesAndMasonry() {
+  const container = document.querySelector('.panel-container');
+  const images = container.querySelectorAll('img');
+  let loadedCount = 0;
+
+  if (images.length === 0) {
+    initMasonry();
+    return;
+  }
+
+  images.forEach(img => {
+    if (img.complete) {
+      loadedCount++;
+    } else {
+      img.addEventListener('load', () => {
+        loadedCount++;
+        if (loadedCount === images.length) initMasonry();
+      });
+      img.addEventListener('error', () => {
+        loadedCount++;
+        if (loadedCount === images.length) initMasonry();
+      });
+    }
+  });
+
+  if (loadedCount === images.length) initMasonry();
+}
+
+// Initial run
+window.addEventListener('load', waitForImagesAndMasonry);
+window.addEventListener('resize', initMasonry);

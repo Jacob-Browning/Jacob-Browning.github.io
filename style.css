@@ -4,13 +4,12 @@ body {
   font-family: Arial, sans-serif;
   color: white;
   position: relative;
-  overflow-x: hidden;  /* prevent sideways scroll */
-  overflow-y: auto;    /* enable vertical scroll */
-  min-height: 100vh;   /* allows body to expand beyond viewport */
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
-
-/* Dot map container */
+/* Dot background */
 .container {
   position: fixed;
   top: 0;
@@ -23,7 +22,6 @@ body {
   z-index: 1;
 }
 
-/* Dots */
 .cell {
   width: 1em;
   height: 1em;
@@ -32,148 +30,95 @@ body {
   transition: background-color 0.1s linear, box-shadow 0.2s ease;
 }
 
-
 .panel-container {
   display: grid;
-  grid-template-columns: 600px 600px;
-  gap: 40px 40px;
-  justify-content: center;
-  padding: 60px 20px;
+  grid-template-columns: repeat(2, 1fr); /* max 2 columns */
+  gap: 40px;
+  max-width: 1280px;
+  margin: 0 auto;
   position: relative;
-  z-index: 2;
-  align-items: start;      /* prevents grid items from stretching vertically */
-  grid-auto-rows: auto; 
+  z-index: 2; /* above background */
+  grid-auto-flow: dense; /* fills gaps efficiently */
 }
 
-/* Panels */
+/* Regular panels */
 .panel {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0,0,0,0.3);
   border-radius: 15px;
-  text-align: center;
   padding: 20px;
+  text-align: center;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(5px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  box-sizing: border-box;
 }
 
-/* Each panel positioning */
+/* Full-width panel spanning both columns */
+.div5 {
+  grid-column: 1 / -1; /* spans both columns */
+}
+
+/* DIV1 internal split design */
 .div1 {
-  grid-column: 1;
-  grid-row: 1;
   display: grid;
-  grid-template-columns: 180px 400px;
-  align-items: center;     /* vertically center each cell’s content */
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 20px;
 }
 
 .div1 .pict {
-  width:180px;
-  height:180px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
   display: flex;
-  margin-left:40px;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;     /* makes it a perfect circle */
-  object-fit: cover; 
 }
 
 .div1 .text1 {
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* vertical centering */
-  align-items: center;      /* horizontal centering */
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
+
 .div1 .text2 {
-  padding-right:20px;
   grid-column: 1 / span 2;
-  grid-row:2;
+  padding-top: 10px;
+  text-align: center;
 }
 
-.div2 {
-  grid-column: 2;
-  grid-row: 1;
-}
+/* Panel text */
+.panel h1 { font-size: 1.8em; margin-bottom: 0.3em; }
+.panel h2 { font-size: 1.2em; margin-bottom: 1em; color: #aaa; }
+.panel p  { font-size: 1em; color: #ddd; }
 
-.div3 {
-  grid-column: 1;
-  grid-row: 2;
-}
-.div4 {
-  grid-column: 2;
-  grid-row: 2;
-}
-/* Full-width panel */
-.div5 {
-  grid-column: 1 / span 2;
-  grid-row: 3;
-}
-.div6 {
-  grid-column: 1;
-  grid-row: 4;
-}
-.div7 {
-  grid-column: 2;
-  grid-row: 4;
-}
-
-/* Panel text styles */
-.panel h1 {
-  font-size: 1.8em;
-  margin-bottom: 0.3em;
-}
-
-.panel h2 {
-  font-size: 1.2em;
-  margin-bottom: 1em;
-  color: #aaa;
-}
-
-.panel p {
-  font-size: 1em;
-  color: #ddd;
-}
-/* Project card container */
+/* Project Cards */
 .project-card {
   position: relative;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  padding-top: 0px;
-  padding-bottom: 16px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 16px 20px;
   margin: 12px 0;
   cursor: pointer;
-  transition:
-    background-color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Text styling inside the project card */
-.project-card h3 {
-  font-size: 1.4em;
-  margin-bottom: 0.4em;
-  color: #fff;
-}
+.project-card h3 { font-size: 1.4em; margin-bottom: 0.4em; color: #fff; }
+.project-card p  { font-size: 1em; color: #ccc; margin: 0; }
 
-.project-card p {
-  font-size: 1em;
-  color: #ccc;
-  margin: 0;
-}
-
-/* Hover effect */
 .project-card:hover {
   background-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
 }
 
-/* GitHub icon positioning */
 .project-card .github-icon {
   position: absolute;
   top: 10px;
@@ -184,75 +129,60 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Hover effect for icon */
 .project-card:hover .github-icon {
   opacity: 1;
   transform: scale(1.1);
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
 }
+
+/* Contact Cards */
 .contact-cards-container {
   display: flex;
-  justify-content: center; /* Center the cards horizontally */
-  align-items: center;     /* Vertically align icons and text */
-  gap: 24px;               /* Space between the cards */
-  flex-wrap: wrap;         /* Wrap on smaller screens */
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
   margin-top: 20px;
 }
+
 .contact-card {
   display: flex;
-  align-items: center;          /* Vertically align icon + text */
-  justify-content: center;      /* Center them horizontally */
-  gap: 14px;                    /* Space between icon and text */
-
-  background-color: rgba(255, 255, 255, 0.05);
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background-color: rgba(255,255,255,0.05);
   border-radius: 12px;
   padding: 14px 24px;
   margin: 12px 0;
   cursor: pointer;
-  transition:
-    background-color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Icon */
-.contact-card .icon {
-  width: 32px;
-  height: 32px;
-  opacity: 0.8;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
+.contact-card .icon { width: 32px; height: 32px; opacity: 0.8; transition: 0.2s ease; }
+.contact-card h3 { font-size: 1.2em; color: #fff; margin: 0; white-space: nowrap; }
 
-/* Text */
-.contact-card h3 {
-  font-size: 1.2em;
-  color: #fff;
-  margin: 0;
-  white-space: nowrap; /* Keeps text from wrapping to next line */
-}
-
-/* Hover */
 .contact-card:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255,255,255,0.15);
   transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
 }
 
 .contact-card:hover .icon {
   opacity: 1;
   transform: scale(1.1);
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
 }
-/* Contact Form Container */
+
+/* Contact Form */
 .contact_form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4); /* dark frosted panel */
+  background-color: rgba(0,0,0,0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
@@ -260,63 +190,45 @@ body {
   margin: 20px 0;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
   color: #fff;
   font-family: Arial, sans-serif;
 }
 
-/* Input and Textarea Styles */
 .contact_form input,
 .contact_form textarea {
   width: 100%;
   padding: 12px 16px;
   margin: 10px 0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255,255,255,0.05);
   color: #fff;
   font-size: 1em;
-  font-family: inherit;
   outline: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Focus effect for inputs */
 .contact_form input:focus,
 .contact_form textarea:focus {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
 }
 
-/* Submit Button */
 .contact_form button {
   margin-top: 15px;
   padding: 12px 24px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255,255,255,0.05);
   color: #fff;
   font-size: 1em;
-  font-family: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
-/* Button Hover */
 .contact_form button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255,255,255,0.15);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Optional: Label Styling */
-.contact_form label {
-  align-self: flex-start;
-  margin-top: 10px;
-  margin-bottom: 4px;
-  font-size: 0.95em;
-  color: #ccc;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
 }
