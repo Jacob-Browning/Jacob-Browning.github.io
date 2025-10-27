@@ -2,21 +2,12 @@ const container = document.querySelector('.container');
 let cols, rows;
 let cells = [];
 
-// Function to create a responsive grid based on screen size
+// Function to create dot grid based on window size
 function createGrid() {
   container.innerHTML = '';
   cells = [];
 
-  // Determine cell size based on screen width
-  let cellSize;
-  if (window.innerWidth >= 1200) {
-    cellSize = 20; // desktop
-  } else if (window.innerWidth >= 768) {
-    cellSize = 25; // tablet
-  } else {
-    cellSize = 35; // phone, fewer cells for performance
-  }
-
+  const cellSize = 20; // approximate pixel size per cell
   cols = Math.floor(window.innerWidth / cellSize);
   rows = Math.floor(window.innerHeight / cellSize);
 
@@ -36,17 +27,19 @@ window.addEventListener('resize', createGrid);
 let rect;
 let trail = [];
 
-// Track mouse and touch positions
+// Mouse and touch tracking
 function addTrail(x, y) {
   trail.push({ x, y, time: Date.now() });
   if (trail.length > 25) trail.shift();
 }
 
+// Mouse move
 document.addEventListener('mousemove', (e) => {
   rect = container.getBoundingClientRect();
   addTrail(e.clientX - rect.left, e.clientY - rect.top);
 });
 
+// Touch move
 document.addEventListener('touchmove', (e) => {
   rect = container.getBoundingClientRect();
   for (let touch of e.touches) {
@@ -54,12 +47,12 @@ document.addEventListener('touchmove', (e) => {
   }
 }, { passive: true });
 
-// Linear interpolation
+// Linear interpolation helper
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-// Animate the dots
+// Animate the dot grid
 function animate() {
   requestAnimationFrame(animate);
   if (!rect) return;
@@ -75,6 +68,7 @@ function animate() {
     const y = row * cellHeight + cellHeight / 2;
 
     let intensity = 0;
+
     trail.forEach((pos) => {
       const age = (now - pos.time) / 1000;
       const fade = Math.max(0, 1 - age * 2);
