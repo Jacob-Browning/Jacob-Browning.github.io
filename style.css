@@ -41,6 +41,8 @@ body {
   padding: 60px 20px;
   position: relative;
   z-index: 2;
+  align-items: start;      /* prevents grid items from stretching vertically */
+  grid-auto-rows: auto; 
 }
 
 /* Panels */
