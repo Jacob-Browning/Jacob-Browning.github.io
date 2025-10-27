@@ -12,13 +12,10 @@
   <!-- Grid for panels -->
   <div class="panel-container">
     <div class="panel div1">
-      <div class="pict">
-        <img src="https://skillicons.dev/icons?i=github">
-      </div>
+      <img class="pict" src="assets/profile_picture.png"width="180" height="180">
       <div class="text1">
-        <h1>Jacob Browning</h1>
-        <h2>jacobbrowning294@gmail.com</h2>
-        <h2>07932 567303</h2>
+        <h1>Jacob</h1>
+        <h1>Browning</h1>
       </div>
       <div class="text2">
         <p>A multi-language developer interested in software engineering, web development, and databases.</p>
@@ -81,10 +78,26 @@
         <img src="https://skillicons.dev/icons?i=linkedin" alt="linkedin" class="icon">
         <h3>Jacob Browning</h3>
       </div>
+      <div class="contact-card" onclick="window.open('https://pypi.org/user/Jacoob/', '_blank')">
+        <img src="https://skillicons.dev/icons?i=py" alt="pypi" class="icon">
+        <h3>Jacoob</h3>
+      </div>
     </div>
     <div class="panel div7">
       <h1>Get In Touch</h1>
-        <div class="contact-cards-container"></div>
+        <form class="contact_form" action="https://formspree.io/f/xblpdlqz" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="replyto" placeholder="Your Email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message..." required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+
     </div>
   </div>
       
